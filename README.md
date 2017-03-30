@@ -1,9 +1,8 @@
-# ciscospark-websocket-events
 
 Cisco Spark Websocket Events
 ===========================================
 
-[ciscospark-websocket-events](https://github.com/marchfederico/ciscospark-websocket-events) It provides a simple way to get events through Cisco Sparks native websockets.
+[ciscospark-websocket-events](https://github.com/marchfederico/ciscospark-websocket-events) This module provides a simple way to get events through Cisco Spark's native websocket.
 
 ## Installation
 
@@ -11,15 +10,13 @@ Cisco Spark Websocket Events
 
 ## Usage
 
-This module can be used in two different ways.  The first is by setting an event callback to handle the events directly in your code.  The second is to define URL to  
-the location you would like to post event data to.
+This module can be used in two different ways.  The first is by setting an event callback to handle the events directly in your code.  The second is to define URL to the location you would like to post event data to.
 
 The current events supported are:
 
 Message Created
 Membership Created
 Room Updated
-
 
 Here is an example event:
 ```json
