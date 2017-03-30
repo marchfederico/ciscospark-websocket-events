@@ -2,7 +2,7 @@
 Cisco Spark Websocket Events
 ===========================================
 
-[ciscospark-websocket-events](https://github.com/marchfederico/ciscospark-websocket-events) This module provides a simple way to get events through Cisco Spark's native websocket.
+[ciscospark-websocket-events](https://github.com/marchfederico/ciscospark-websocket-events) This module provides a simple way to get events through Cisco Spark's native websocket.  This module is useful when deploying a Cisco Spark BOT behind a firewall with no way to get the traditional inbound webhooks back to the BOT.
 
 ## Installation
 
