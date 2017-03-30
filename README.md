@@ -36,12 +36,11 @@ Here is an example event:
 }
 ```
 
-### Exmaple
+### Exmaple 1 using the event handler callback
 
 ```javascript
    var SparkWebSocket = require('ciscospark-websocket-events')
    var accessToken = process.env.BOT_TOKEN
-   var webHookUrl =  process.env.WEBHOOK_URL
 
    sparkwebsocket = new SparkWebSocket(accessToken)
    sparkwebsocket.connect(function(err,res){
@@ -51,11 +50,30 @@ Here is an example event:
           console.log("New Event")
           console.log("---------")
           console.log(JSON.stringify(event,null,2))
+          
+          // do something with the event
         })
-        
-        if(webHookUrl)
-            sparkwebsocket.setWebHookURL(webHookUrl)
 
+      }
+      else {
+        console.log("Error starting up websocket: "+err)
+      }
+
+   })
+```
+
+### Exmaple 2 forwarding the event using the webhook_url
+
+```javascript
+   var SparkWebSocket = require('ciscospark-websocket-events')
+   var accessToken = process.env.BOT_TOKEN
+   var webHookUrl =  process.env.WEBHOOK_URL // http://localhost:8080/mybot/incoming_event
+
+   sparkwebsocket = new SparkWebSocket(accessToken)
+   sparkwebsocket.connect(function(err,res){
+      if (!err)
+      {
+         sparkwebsocket.setWebHookURL(webHookUrl)
       }
       else {
         console.log("Error starting up websocket: "+err)
