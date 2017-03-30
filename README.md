@@ -14,9 +14,9 @@ This module can be used in two different ways.  The first is by setting an event
 
 The current events supported are:
 
-Message Created
-Membership Created
-Room Updated
+* Message Created
+* Membership Created
+* Room Updated
 
 Here is an example event:
 ```json
