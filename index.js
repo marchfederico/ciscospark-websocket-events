@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var SparkWebSocket = require('./lib/sparkwebsocket.js');
+var SparkWebSocket = require('./lib/SparkWebSocket.js');
 
 
 /**

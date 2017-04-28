@@ -1,0 +1,15 @@
+{
+  "name": "botkit-sample",
+  "version": "0.1.0",
+  "description": "BotKit Sample for Cisco Spark Websocket Events",
+  "main": "botkit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "botkit": "^0.5.3",
+    "ciscospark-websocket-events": "^1.0.7"
+  }
+}
