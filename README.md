@@ -3,7 +3,7 @@ Cisco Spark Websocket Events
 
 Provides a simple way to get events through Cisco Spark's native websocket.
 
-This module is useful when deploying a Cisco park BOT behind a firewall with no way to get the traditional inbound webhooks back to the bot.
+This module is useful when deploying a Cisco Spark bot behind a firewall with no way to get the traditional inbound webhooks back to the bot.
 
 
 ## Installation
@@ -13,7 +13,9 @@ This module is useful when deploying a Cisco park BOT behind a firewall with no 
 
 ## Usage
 
-This module can be used in two different ways.  The first is by setting an event callback to handle the events directly in your code.  The second is to define URL to the location you would like to post event data to.
+This module can be used in two different ways.
+The first is by setting an event callback to handle the events directly in your code.
+The second is to define URL to the location you would like to post event data to.
 
 The current events supported are:
 
@@ -60,8 +62,7 @@ Check the code:
 
    sparkwebsocket = new SparkWebSocket(accessToken);
    sparkwebsocket.connect(function (err, res){
-      if (!err)
-      {
+      if (!err) {
         sparkwebsocket.setEventCallback(function (event){
           console.log("New Event");
           console.log("---------");
@@ -87,12 +88,13 @@ Check the code:
 
    sparkwebsocket = new SparkWebSocket(accessToken);
    sparkwebsocket.connect(function(err, res){
-      if (!err)
-      {
-         sparkwebsocket.setWebHookURL(webHookUrl);
+      if (!err) {
+         if (webHookUrl) {
+            sparkwebsocket.setWebHookURL(webHookUrl);
+         }
       }
       else {
-        console.log("Error starting up websocket: " + err);
+         console.log("Error starting up websocket: " + err);
       }
    });
 ```
@@ -110,14 +112,14 @@ Run the sample from a terminal:
 ...
 ```
 
-Check the code:
+Check the [BotKit code sample](examples/botkit/bot.js):
 
 ```javascript
 /// Setup the Cisco Spark Websocket
 
 var SparkWebSocket = require('ciscospark-websocket-events')
 
-var accessToken = process.env.BOT_TOKEN
+var accessToken = process.env.SPARK_TOKEN
 var PORT = process.env.PORT || 3000
 
 var webHookUrl =  "http://localhost:"+PORT+"/ciscospark/receive"
@@ -141,7 +143,7 @@ var controller = Botkit.sparkbot({
     debug: true,
     log: true,
     public_address: "https://localhost",
-    ciscospark_access_token: process.env.BOT_TOKEN
+    ciscospark_access_token: process.env.SPARK_TOKEN
 });
 
 
@@ -184,14 +186,16 @@ Run the sample from a terminal:
 ```
 
 
-Check the code:
+Check the [flint code sample](examples/flint/bot.js):
 
 ```javascript
 // Spark Websocket Intialization
 var SparkWebSocket = require('ciscospark-websocket-events')
 
-var accessToken = process.env.BOT_TOKEN
-var webHookUrl =  "http://localhost:8080/flint"
+var accessToken = process.env.SPARK_TOKEN
+var PORT = process.env.PORT || 8080
+
+var webHookUrl =  "http://localhost:"+PORT+"/flint"
 
 sparkwebsocket = new SparkWebSocket(accessToken)
 sparkwebsocket.connect(function(err,res){
@@ -217,7 +221,7 @@ app.use(bodyParser.json());
 // flint options
 var config = {
   token: accessToken,
-  port: 8080,
+  port: PORT,
   removeWebhooksOnStart: true,
   maxConcurrent: 5,
   minTime: 50
