@@ -1,0 +1,17 @@
+{
+  "name": "flint-sample",
+  "version": "0.1.0",
+  "description": "Flint Sample for Cisco Spark Websocket Events",
+  "main": "flint.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ciscospark-websocket-events": "^1.0.7",
+    "express": "^4.15.2",
+    "node-flint": "^4.5.3"
+  }
+}

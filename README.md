@@ -1,16 +1,21 @@
-
 Cisco Spark Websocket Events
 ===========================================
 
-[ciscospark-websocket-events](https://github.com/marchfederico/ciscospark-websocket-events) This module provides a simple way to get events through Cisco Spark's native websocket.  This module is useful when deploying a Cisco Spark BOT behind a firewall with no way to get the traditional inbound webhooks back to the BOT.
+Provides a simple way to get events through Cisco Spark's native websocket.
+
+This module is useful when deploying a Cisco Spark bot behind a firewall with no way to get the traditional inbound webhooks back to the bot.
+
 
 ## Installation
 
 `npm install ciscospark-websocket-events`
 
+
 ## Usage
 
-This module can be used in two different ways.  The first is by setting an event callback to handle the events directly in your code.  The second is to define URL to the location you would like to post event data to.
+This module can be used in two different ways.
+The first is by setting an event callback to handle the events directly in your code.
+The second is to define URL to the location you would like to post event data to.
 
 The current events supported are:
 
@@ -22,7 +27,7 @@ Here is an example event:
 ```json
 {
   "event": "created",
-  "resource": "messages"
+  "resource": "messages",
   "data": {
     "id": "Y2lzY29zcGFyazovL3VzL01FU1NBR0UvMzkyM2RiNDAtMTU4ZS0xMWU3LWI1OWItMjNiODI4NTFiY2Fh",
     "roomId": "Y2lzY29zcGFyazovL3VzL1JPT00vOTAwYjZiNTEtNDc2ZC0zMjkzLThlMTAtYmI1MTVjN2RjNDQy",
@@ -36,61 +41,85 @@ Here is an example event:
 }
 ```
 
-### Exmaple 1 using the event handler callback
+
+## Example 1: using the event handler callback
+
+Run the sample from a terminal:
+
+```shell
+> cd ciscospark-websocket-events
+> npm install
+> cd tests
+> SPARK_TOKEN=XXXXXXXXXXXXXXXXX node event-callback.js
+...
+``` 
+
+Check the code:
 
 ```javascript
-   var SparkWebSocket = require('ciscospark-websocket-events')
-   var accessToken = process.env.BOT_TOKEN
+   var SparkWebSocket = require('ciscospark-websocket-events');
+   var accessToken = process.env.SPARK_TOKEN;
 
-   sparkwebsocket = new SparkWebSocket(accessToken)
-   sparkwebsocket.connect(function(err,res){
-      if (!err)
-      {
-        sparkwebsocket.setEventCallback(function(event){
-          console.log("New Event")
-          console.log("---------")
-          console.log(JSON.stringify(event,null,2))
+   sparkwebsocket = new SparkWebSocket(accessToken);
+   sparkwebsocket.connect(function (err, res){
+      if (!err) {
+        sparkwebsocket.setEventCallback(function (event){
+          console.log("New Event");
+          console.log("---------");
+          console.log(JSON.stringify(event, null, 2));
           
           // do something with the event
-        })
+        });
 
       }
       else {
-        console.log("Error starting up websocket: "+err)
+        console.log("Error starting up websocket: " + err);
       }
-
-   })
+   }):
 ```
 
-### Exmaple 2 forwarding the event using the webhook_url
+
+## Example 2: forwarding the event using the webhook_url
 
 ```javascript
-   var SparkWebSocket = require('ciscospark-websocket-events')
-   var accessToken = process.env.BOT_TOKEN
-   var webHookUrl =  process.env.WEBHOOK_URL // http://localhost:8080/mybot/incoming_event
+   var SparkWebSocket = require('ciscospark-websocket-events');
+   var accessToken = process.env.SPARK_TOKEN;
+   var webHookUrl =  process.env.WEBHOOK_URL; // http://localhost:8080/mybot/incoming_event
 
-   sparkwebsocket = new SparkWebSocket(accessToken)
-   sparkwebsocket.connect(function(err,res){
-      if (!err)
-      {
-         sparkwebsocket.setWebHookURL(webHookUrl)
+   sparkwebsocket = new SparkWebSocket(accessToken);
+   sparkwebsocket.connect(function(err, res){
+      if (!err) {
+         if (webHookUrl) {
+            sparkwebsocket.setWebHookURL(webHookUrl);
+         }
       }
       else {
-        console.log("Error starting up websocket: "+err)
+         console.log("Error starting up websocket: " + err);
       }
-
-   })
+   });
 ```
----
 
-### BotKit Example
+
+## BotKit Example
+
+Run the sample from a terminal:
+
+```shell
+> cd examples
+> cd botkit
+> npm install
+> SPARK_TOKEN=XXXXXXXXXXXXXXXXX node bot.js
+...
+```
+
+Check the [BotKit code sample](examples/botkit/bot.js):
 
 ```javascript
 /// Setup the Cisco Spark Websocket
 
 var SparkWebSocket = require('ciscospark-websocket-events')
 
-var accessToken = process.env.BOT_TOKEN
+var accessToken = process.env.SPARK_TOKEN
 var PORT = process.env.PORT || 3000
 
 var webHookUrl =  "http://localhost:"+PORT+"/ciscospark/receive"
@@ -114,7 +143,7 @@ var controller = Botkit.sparkbot({
     debug: true,
     log: true,
     public_address: "https://localhost",
-    ciscospark_access_token: process.env.BOT_TOKEN
+    ciscospark_access_token: process.env.SPARK_TOKEN
 });
 
 
@@ -142,14 +171,31 @@ controller.on('direct_message', function(bot, message) {
     bot.reply(message, 'I got your private message. You said, "' + message.text + '"');
 });
 ```
-### Flint Example
+
+
+## Flint Example
+
+Run the sample from a terminal:
+
+```shell
+> cd examples
+> cd flint
+> npm install
+> SPARK_TOKEN=XXXXXXXXXXXXXXXXX node bot.js
+...
+```
+
+
+Check the [flint code sample](examples/flint/bot.js):
 
 ```javascript
 // Spark Websocket Intialization
 var SparkWebSocket = require('ciscospark-websocket-events')
 
-var accessToken = process.env.BOT_TOKEN
-var webHookUrl =  "http://localhost:8080/flint"
+var accessToken = process.env.SPARK_TOKEN
+var PORT = process.env.PORT || 8080
+
+var webHookUrl =  "http://localhost:"+PORT+"/flint"
 
 sparkwebsocket = new SparkWebSocket(accessToken)
 sparkwebsocket.connect(function(err,res){
@@ -175,7 +221,7 @@ app.use(bodyParser.json());
 // flint options
 var config = {
   token: accessToken,
-  port: 8080,
+  port: PORT,
   removeWebhooksOnStart: true,
   maxConcurrent: 5,
   minTime: 50
