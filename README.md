@@ -267,3 +267,13 @@ process.on('SIGINT', function() {
   });
 });
 ```
+
+## Proxy Support
+
+Cisco Spark Websockets now support web proxies!
+
+To enable web proxy support set the following enviroment variables:
+* HTTP_PROXY=(to your web proxy URL)
+* NO_PROXY=localhost
+
+
